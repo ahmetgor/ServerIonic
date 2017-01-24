@@ -10,6 +10,7 @@ var KayitSchema = new mongoose.Schema({
     },
     firma: {
         type: String,
+        required: true
     }
 
 }, {

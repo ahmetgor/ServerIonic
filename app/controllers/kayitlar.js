@@ -2,7 +2,9 @@ var Kayit = require('../models/kayit');
 
 exports.getKayitlar = function(req, res, next){
 
-    Kayit.find(function(err, kayitlar) {
+  let st = new RegExp(req.query.term, "i")
+    Kayit.find( { $or: [{baslik: st}, {firma:st}] },
+                { _id: 0 }, function(err, kayitlar) {
 
         if (err){
             res.send(err);
@@ -11,6 +13,24 @@ exports.getKayitlar = function(req, res, next){
         res.json(kayitlar);
 
     });
+
+//     Kayit.find(function(err, kayitlar) {
+//       console.log('/'+req.query.term+'/');
+//
+//       if (err){
+//           res.send(err);
+//       }
+//       kayitlar.forEach(function(kayitloop){
+//         for (var key in kayitloop) {
+//           // console.log(kayitlar[key]);
+//           // console.log('hebe');
+//           console.log(kayitloop[key]);
+//           if (/req.query.term/.test(kayitloop[key]) )
+//          printjson(kayitloop);
+//     }
+// });
+// res.json(kayitlar);
+// });
 
 }
 
