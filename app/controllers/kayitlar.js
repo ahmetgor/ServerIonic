@@ -11,9 +11,18 @@ exports.getKayitlar = function(req, res, next){
         }
 
         res.json(kayitlar);
-
     });
+}
+    exports.getKayit = function(req, res, next){
 
+        Kayit.find({ _id: req.params.kayit_id }, function(err, kayit) {
+
+            if (err){
+                res.send(err);
+            }
+
+            res.json(kayit);
+        });
 //     Kayit.find(function(err, kayitlar) {
 //       console.log('/'+req.query.term+'/');
 //
@@ -31,11 +40,10 @@ exports.getKayitlar = function(req, res, next){
 // });
 // res.json(kayitlar);
 // });
-
 }
 
 exports.createKayit = function(req, res, next){
-
+   console.log(req.body.baslik);
     Kayit.create({
         baslik : req.body.baslik,
         firma :  req.body.firma
@@ -44,19 +52,22 @@ exports.createKayit = function(req, res, next){
         if (err){
             res.send(err);
         }
-
-        Kayit.find(function(err, kayitlar) {
-
-            if (err){
-                res.send(err);
-            }
-
-            res.json(kayitlar);
-
-        });
-
+        res.json(kayit);
     });
 
+}
+
+exports.updateKayit = function(req, res, next){
+    console.log(req.body);
+    Kayit.update({
+        _id : req.params.kayit_id
+    }, req.body, function(err, kayit) {
+
+      if (err){
+          res.send(err);
+      }
+        res.json(kayit);
+    });
 }
 
 exports.deleteKayit = function(req, res, next){
@@ -64,7 +75,10 @@ exports.deleteKayit = function(req, res, next){
     Kayit.remove({
         _id : req.params.kayit_id
     }, function(err, kayit) {
+
+      if (err){
+          res.send(err);
+      }
         res.json(kayit);
     });
-
 }

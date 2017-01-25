@@ -27,8 +27,10 @@ module.exports = function(app){
     apiRoutes.use('/kayitlar', todoRoutes);
 
     todoRoutes.get('/', TodoController.getKayitlar);
-    todoRoutes.post('/', requireAuth, AuthenticationController.roleAuthorization(['creator','editor']), TodoController.createKayit);
-    todoRoutes.delete('/:kayit_id', requireAuth, AuthenticationController.roleAuthorization(['editor']), TodoController.deleteKayit);
+    todoRoutes.get('/:kayit_id', TodoController.getKayit);
+    todoRoutes.post('/', /*requireAuth, AuthenticationController.roleAuthorization(['creator','editor']),*/ TodoController.createKayit);
+    todoRoutes.delete('/:kayit_id', /*requireAuth, AuthenticationController.roleAuthorization(['editor']),*/ TodoController.deleteKayit);
+    todoRoutes.put('/:kayit_id', /*requireAuth, AuthenticationController.roleAuthorization(['editor']),*/ TodoController.updateKayit);
 
     // Set up routes
     app.use('/api', apiRoutes);
