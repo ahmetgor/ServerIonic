@@ -4,7 +4,7 @@ exports.getKayitlar = function(req, res, next){
 
   let st = new RegExp(req.query.term, "i")
     Kayit.find( { $or: [{baslik: st}, {firma:st}] },
-                { _id: 0 }, function(err, kayitlar) {
+                 function(err, kayitlar) {
 
         if (err){
             res.send(err);
@@ -15,7 +15,7 @@ exports.getKayitlar = function(req, res, next){
 }
     exports.getKayit = function(req, res, next){
 
-        Kayit.find({ _id: req.params.kayit_id }, function(err, kayit) {
+        Kayit.findOne({ _id: req.params.kayit_id }, function(err, kayit) {
 
             if (err){
                 res.send(err);
