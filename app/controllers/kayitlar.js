@@ -1,9 +1,13 @@
 var Kayit = require('../models/kayit');
 
 exports.getKayitlar = function(req, res, next){
-
+  console.log(req.query.kayit);
   let st = new RegExp(req.query.term, "i")
-    Kayit.find( { $or: [{baslik: st}, {firma:st}] },
+    Kayit.find({
+    $and : [ req.query.kayit,
+      { $or: [{baslik: st}, {firma:st}] }
+    ]
+},
                  function(err, kayitlar) {
 
         if (err){
