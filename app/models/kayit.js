@@ -11,10 +11,40 @@ var KayitSchema = new mongoose.Schema({
     firma: {
         type: String,
         required: true
+    },
+
+    adres: {
+        type: String
+    },
+
+    telefon: {
+      type: String
+    },
+
+    makina: {
+        type: String
+    },
+
+    seri: {
+        type: String
+    },
+
+    garanti: {
+        type: String,
+        enum: ['evet', 'hayir'],
+        default: 'evet'
+    },
+    bedel: {
+        type: Number
+    },
+    odeme: {
+        type: String,
+        enum: ['odenmedi', 'nakit', 'kredikarti', 'ceksenet'],
+        default: 'odenmedi'
     }
 
 }, {
     timestamps: true
-});
+  });
 
 module.exports = mongoose.model('Kayit', KayitSchema);

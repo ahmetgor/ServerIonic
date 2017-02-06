@@ -18,6 +18,8 @@ module.exports = function(app){
 
     authRoutes.post('/register', AuthenticationController.register);
     authRoutes.post('/login', requireLogin, AuthenticationController.login);
+    authRoutes.get('/users', AuthenticationController.users);
+
 
     authRoutes.get('/protected', requireAuth, function(req, res){
         res.send({ content: 'Success'});

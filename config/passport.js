@@ -6,15 +6,17 @@ var ExtractJwt = require('passport-jwt').ExtractJwt;
 var LocalStrategy = require('passport-local').Strategy;
 
 var localOptions = {
-    usernameField: 'email'
+    usernameField: 'email',
+    passReqToCallback: true
 };
 
-var localLogin = new LocalStrategy(localOptions, function(email, password, done){
+var localLogin = new LocalStrategy(localOptions, function(req, email, password, done){
 
     User.findOne({
-        email: email
+        email: email,
+        firma: req.body.firma
     }, function(err, user){
- 
+
         if(err){
             return done(err);
         }
