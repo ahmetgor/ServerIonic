@@ -102,15 +102,3 @@ exports.roleAuthorization = function(roles){
 
     }
 }
-
-exports.users = function(req, res, next){
-  console.log(req.query.firma );
-    User.find({ firma: req.query.firma }, function(err, kayit) {
-
-        if (err){
-            res.send(err);
-        }
-
-        res.json(kayit);
-    });
-  }
