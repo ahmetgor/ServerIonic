@@ -53,10 +53,9 @@ exports.getKayitlar = function(req, res, next){
 
 exports.createKayit = function(req, res, next){
    console.log(req.body.baslik);
-    Kayit.create({
-        baslik : req.body.baslik,
-        firma :  req.body.firma
-    }, function(err, kayit) {
+    Kayit.create(
+        req.body,
+     function(err, kayit) {
 
         if (err){
             res.send(err);

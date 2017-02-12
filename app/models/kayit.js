@@ -41,6 +41,12 @@ var KayitSchema = new mongoose.Schema({
         type: String,
         enum: ['odenmedi', 'nakit', 'kredikarti', 'ceksenet'],
         default: 'odenmedi'
+    },
+    olusturan: {
+      type: String
+    },
+    guncelleyen: {
+      type: String
     }
 
 }, {
