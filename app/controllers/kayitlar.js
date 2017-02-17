@@ -5,8 +5,11 @@ exports.getKayitlar = function(req, res, next){
   var st = new RegExp(req.query.term, "i")
   var kayit = req.query.kayit;
   var query = JSON.parse(req.query.kayit);
+  var order = JSON.parse(req.query.orderBy);
   // query = { $and: {firma: "firma"} };
   console.log(query);
+  console.log(order+'order');
+
     Kayit.find(
       {
     $and : [ query,
@@ -20,7 +23,7 @@ exports.getKayitlar = function(req, res, next){
         }
 
         res.json(kayitlar);
-    });
+    }).sort(order);
 }
     exports.getKayit = function(req, res, next){
 
