@@ -25,7 +25,8 @@ var UserSchema = new mongoose.Schema({
         lowercase: true
     },
     enabled: {
-        type: Boolean
+        type: Boolean,
+        default: false
     }
 
   },

@@ -14,14 +14,14 @@ exports.getUsers = function(req, res, next){
 
   exports.getUser = function(req, res, next){
 
-      User.findOne({ _id: req.params.user_id }, function(err, kayit) {
+      User.findOne({ email: req.params.email }, function(err, kayit) {
 
           if (err){
               res.send(err);
           }
 
           res.json(kayit);
-      });
+        });
     }
 
   exports.updateUser = function(req, res, next){

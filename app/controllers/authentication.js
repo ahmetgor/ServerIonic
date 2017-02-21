@@ -12,7 +12,9 @@ function setUserInfo(request){
     return {
         _id: request._id,
         email: request.email,
-        role: request.role
+        role: request.role,
+        firma: request.firma
+
     };
 }
 
@@ -32,7 +34,6 @@ exports.register = function(req, res, next){
     var email = req.body.email;
     var password = req.body.password;
     var role = req.body.role;
-    var firma = req.body.firma;
 
     if(!email){
         return res.status(422).send({error: 'You must enter an email address'});
@@ -49,8 +50,20 @@ exports.register = function(req, res, next){
         }
 
         if(existingUser){
-            return res.status(422).send({error: 'That email address is already in use'});
+          console.log('Bu email kullanımda');
+            return res.status(422).send({error: 'Bu email kullanımda'});
         }
+
+        User.findOne({firma: firma, role: 'creator'}, function(err, existingCreator){
+
+          if(err){
+              return next(err);
+          }
+
+          if(existingCreator && role=='creator'){
+            console.log('Firmada yönetici mevcut');
+              return res.status(422).send({error: 'Firmada yönetici mevcut'});
+          }
 
         var user = new User({
             email: email,
@@ -73,9 +86,9 @@ exports.register = function(req, res, next){
             })
 
         });
+      });
 
     });
-
 }
 
 exports.roleAuthorization = function(roles){
@@ -92,6 +105,7 @@ exports.roleAuthorization = function(roles){
             }
 
             if(roles.indexOf(foundUser.role) > -1 && foundUser.enabled){
+              console.log('founduser '+foundUser.enabled);
                 return next();
             }
 

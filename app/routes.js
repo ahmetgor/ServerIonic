@@ -28,16 +28,16 @@ module.exports = function(app){
 
     apiRoutes.use('/users', userRoutes);
 
-    userRoutes.get('/', UsersController.getUsers);
-    userRoutes.get('/:user_id', UsersController.getUser);
-    userRoutes.delete('/:user_id', UsersController.deleteUser);
-    userRoutes.put('/:user_id', UsersController.updateUser);
+    userRoutes.get('/', requireAuth, UsersController.getUsers);
+    userRoutes.get('/:email', requireAuth, UsersController.getUser);
+    userRoutes.delete('/:user_id', requireAuth, UsersController.deleteUser);
+    userRoutes.put('/:user_id', requireAuth, UsersController.updateUser);
 
 
     // Todo Routes
     apiRoutes.use('/kayitlar', todoRoutes);
 
-    todoRoutes.get('/',requireAuth, TodoController.getKayitlar);
+    todoRoutes.get('/', requireAuth, TodoController.getKayitlar);
     todoRoutes.get('/:kayit_id', requireAuth, TodoController.getKayit);
     todoRoutes.post('/', requireAuth,/* AuthenticationController.roleAuthorization(['creator','editor']),*/ TodoController.createKayit);
     todoRoutes.delete('/:kayit_id', requireAuth, /* AuthenticationController.roleAuthorization(['editor']),*/ TodoController.deleteKayit);
