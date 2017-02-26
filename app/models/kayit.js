@@ -8,6 +8,14 @@ var KayitSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
+
+    durum: {
+        type: String,
+        enum: ['Çalışılıyor', 'Cevap Bekleniyor', 'Kapandı'],
+        default: 'Çalışılıyor',
+        required: true
+    },
+
     firma: {
         type: String,
         required: true
