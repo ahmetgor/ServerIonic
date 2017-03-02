@@ -14,7 +14,7 @@ exports.getUsers = function(req, res, next){
 
   exports.getUser = function(req, res, next){
 
-      User.findOne({ email: req.params.email }, function(err, kayit) {
+      User.findOne({ email: req.params.email }, { password: 0 }, function(err, kayit) {
 
           if (err){
               res.send(err);

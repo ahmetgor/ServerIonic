@@ -1,9 +1,11 @@
 var Kayit = require('../models/kayit');
 
 exports.getKayitlar = function(req, res, next){
-  console.log(req.query.kayit);
+
+  console.log(JSON.stringify(req.user.firma)+'req query');
   var st = new RegExp(req.query.term, "i")
-  var kayit = req.query.kayit;
+  // var kayit = req.query.kayit;
+  var owner = req.user.firma;
   var query = JSON.parse(req.query.kayit);
   var order = JSON.parse(req.query.orderBy);
   // query = { $and: {firma: "firma"} };
@@ -12,7 +14,7 @@ exports.getKayitlar = function(req, res, next){
 
     Kayit.find(
       {
-    $and : [ query,
+    $and : [ query, {owner: owner},
       { $or: [{baslik: st}, {firma:st}] }
     ]
 }
@@ -55,7 +57,10 @@ exports.getKayitlar = function(req, res, next){
 }
 
 exports.createKayit = function(req, res, next){
-   console.log(req.body.baslik);
+   req.body.owner = req.user.firma;
+   console.log(req.user+'reqreq');
+   console.log(req.body.owner);
+
     Kayit.create(
         req.body,
      function(err, kayit) {

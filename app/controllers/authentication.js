@@ -34,13 +34,14 @@ exports.register = function(req, res, next){
     var email = req.body.email;
     var password = req.body.password;
     var role = req.body.role;
+    var firma = req.body.firma;
 
     if(!email){
-        return res.status(422).send({error: 'You must enter an email address'});
+        return res.status(422).send({error: 'Email girmediniz!'});
     }
 
     if(!password){
-        return res.status(422).send({error: 'You must enter a password'});
+        return res.status(422).send({error: 'Şifre girmediniz!'});
     }
 
     User.findOne({email: email}, function(err, existingUser){
@@ -51,7 +52,7 @@ exports.register = function(req, res, next){
 
         if(existingUser){
           console.log('Bu email kullanımda');
-            return res.status(422).send({error: 'Bu email kullanımda'});
+            return res.status(422).send({error: 'Bu email kullanımda!'});
         }
 
         User.findOne({firma: firma, role: 'creator'}, function(err, existingCreator){
@@ -62,7 +63,7 @@ exports.register = function(req, res, next){
 
           if(existingCreator && role=='creator'){
             console.log('Firmada yönetici mevcut');
-              return res.status(422).send({error: 'Firmada yönetici mevcut'});
+              return res.status(422).send({error: 'Firmada yönetici mevcut, başka rol seçiniz!'});
           }
 
         var user = new User({

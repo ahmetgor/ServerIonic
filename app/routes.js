@@ -30,8 +30,8 @@ module.exports = function(app){
 
     userRoutes.get('/', requireAuth, UsersController.getUsers);
     userRoutes.get('/:email', requireAuth, UsersController.getUser);
-    userRoutes.delete('/:user_id', requireAuth, UsersController.deleteUser);
-    userRoutes.put('/:user_id', requireAuth, UsersController.updateUser);
+    userRoutes.delete('/:user_id', requireAuth, AuthenticationController.roleAuthorization(['creator']), UsersController.deleteUser);
+    userRoutes.put('/:user_id', requireAuth, AuthenticationController.roleAuthorization(['creator']), UsersController.updateUser);
 
 
     // Todo Routes
@@ -39,9 +39,9 @@ module.exports = function(app){
 
     todoRoutes.get('/', requireAuth, TodoController.getKayitlar);
     todoRoutes.get('/:kayit_id', requireAuth, TodoController.getKayit);
-    todoRoutes.post('/', requireAuth,/* AuthenticationController.roleAuthorization(['creator','editor']),*/ TodoController.createKayit);
-    todoRoutes.delete('/:kayit_id', requireAuth, /* AuthenticationController.roleAuthorization(['editor']),*/ TodoController.deleteKayit);
-    todoRoutes.put('/:kayit_id', requireAuth, /* AuthenticationController.roleAuthorization(['editor']),*/ TodoController.updateKayit);
+    todoRoutes.post('/', requireAuth, /* AuthenticationController.roleAuthorization(['creator', 'editor', 'reader']), */ TodoController.createKayit);
+    todoRoutes.delete('/:kayit_id', requireAuth,  AuthenticationController.roleAuthorization(['creator']), TodoController.deleteKayit);
+    todoRoutes.put('/:kayit_id', requireAuth,  AuthenticationController.roleAuthorization(['creator', 'editor']), TodoController.updateKayit);
 
     // Set up routes
     app.use('/api', apiRoutes);
