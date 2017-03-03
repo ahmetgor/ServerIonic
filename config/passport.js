@@ -12,6 +12,7 @@ var localOptions = {
 
 var localLogin = new LocalStrategy(localOptions, function(req, email, password, done){
 
+  console.log(JSON.stringify(req.body)+'req');
     User.findOne({
         email: email,
         firma: req.body.firma,
@@ -24,7 +25,11 @@ var localLogin = new LocalStrategy(localOptions, function(req, email, password, 
         }
 
         if(!user){
-            return done(null, false, {error: 'Login failed. Please try again.'});
+            return done(null, false, {error: 'Girdiğiniz bilgilerden en az biri hatalı'});
+        }
+
+        if(user && user.enabled == false){
+            return done(null, false, {error: 'Hesabınız yönetici tarafından aktive edilmedi'});
         }
 
         user.comparePassword(password, function(err, isMatch){
@@ -34,7 +39,7 @@ var localLogin = new LocalStrategy(localOptions, function(req, email, password, 
             }
 
             if(!isMatch){
-                return done(null, false, {error: 'Login failed. Please try again.'});
+                return done(null, false, {error: 'Girdiğiniz bilgilerden en az biri hatalı'});
             }
 
             return done(null, user);

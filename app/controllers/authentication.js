@@ -35,6 +35,11 @@ exports.register = function(req, res, next){
     var password = req.body.password;
     var role = req.body.role;
     var firma = req.body.firma;
+    var enabled = false;
+
+    if (role = 'creator') {
+      enabled = true;
+    }
 
     if(!email){
         return res.status(422).send({error: 'Email girmediniz!'});
@@ -63,14 +68,18 @@ exports.register = function(req, res, next){
 
           if(existingCreator && role=='creator'){
             console.log('Firmada yönetici mevcut');
-              return res.status(422).send({error: 'Firmada yönetici mevcut, başka rol seçiniz!'});
+              return res.status(422).send({error: 'Firmada yönetici mevcut, lütfen başka rol seçiniz!'});
+          }
+          else if (!existingCreator && role!='creator') {
+            return res.status(422).send({error: 'Yeni firmanın yöneticisi olmalı, lütfen yönetici rol seçiniz!'});
           }
 
         var user = new User({
             email: email,
             password: password,
             role: role,
-            firma: firma
+            firma: firma,
+            enabled: enabled
         });
 
         user.save(function(err, user){
@@ -79,11 +88,11 @@ exports.register = function(req, res, next){
                 return next(err);
             }
 
-            var userInfo = setUserInfo(user);
+            // var userInfo = setUserInfo(user);
 
             res.status(201).json({
-                token: 'JWT ' + generateToken(userInfo),
-                user: userInfo
+                // token: 'JWT ' + generateToken(userInfo),
+                // user: userInfo
             })
 
         });
@@ -111,7 +120,7 @@ exports.roleAuthorization = function(roles){
             }
 
             res.status(401).json({error: 'You are not authorized to view this content'});
-            return next('Unauthorized');
+            return next('Not authorized');
 
         });
 

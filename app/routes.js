@@ -15,6 +15,14 @@ module.exports = function(app){
         todoRoutes = express.Router();
         userRoutes = express.Router();
 
+        // app.post('/login', function(req, res, next ){
+        //     passport.authenticate('local', function(err, user, info) {
+        //       if (err) { return next(err) }
+        //       if (!user) { return res.json( { message: info.message }) }
+        //       res.json(user);
+        //     })(req, res, next);
+        // });
+
     // Auth Routes
     apiRoutes.use('/auth', authRoutes);
 
