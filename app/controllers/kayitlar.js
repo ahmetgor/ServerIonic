@@ -2,15 +2,15 @@ var Kayit = require('../models/kayit');
 
 exports.getKayitlar = function(req, res, next){
 
-  console.log(JSON.stringify(req.user.firma)+'req query');
+  // console.log(JSON.stringify(req.user.firma)+'req query');
   var st = new RegExp(req.query.term, "i")
   // var kayit = req.query.kayit;
   var owner = req.user.firma;
   var query = JSON.parse(req.query.kayit);
   var order = JSON.parse(req.query.orderBy);
   // query = { $and: {firma: "firma"} };
-  console.log(query);
-  console.log(order+'order');
+  // console.log(query);
+  // console.log(order+'order');
 
     Kayit.find(
       {
@@ -58,8 +58,8 @@ exports.getKayitlar = function(req, res, next){
 
 exports.createKayit = function(req, res, next){
    req.body.owner = req.user.firma;
-   console.log(req.user+'reqreq');
-   console.log(req.body.owner);
+  //  console.log(req.user+'reqreq');
+  //  console.log(req.body.owner);
 
     Kayit.create(
         req.body,
@@ -74,7 +74,7 @@ exports.createKayit = function(req, res, next){
 }
 
 exports.updateKayit = function(req, res, next){
-    console.log(req.body);
+    // console.log(req.body);
     Kayit.update({
         _id : req.params.kayit_id
     }, req.body, function(err, kayit) {

@@ -12,7 +12,7 @@ var localOptions = {
 
 var localLogin = new LocalStrategy(localOptions, function(req, email, password, done){
 
-  console.log(JSON.stringify(req.body)+'req');
+  // console.log(JSON.stringify(req.body)+'req');
     User.findOne({
         email: email,
         firma: req.body.firma,

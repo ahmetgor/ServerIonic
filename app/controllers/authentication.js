@@ -56,7 +56,7 @@ exports.register = function(req, res, next){
         }
 
         if(existingUser){
-          console.log('Bu email kullanımda');
+          // console.log('Bu email kullanımda');
             return res.status(422).send({error: 'Bu email kullanımda!'});
         }
 
@@ -67,7 +67,7 @@ exports.register = function(req, res, next){
           }
 
           if(existingCreator && role=='creator'){
-            console.log('Firmada yönetici mevcut');
+            // console.log('Firmada yönetici mevcut');
               return res.status(422).send({error: 'Firmada yönetici mevcut, lütfen başka rol seçiniz!'});
           }
           else if (!existingCreator && role!='creator') {
@@ -115,7 +115,7 @@ exports.roleAuthorization = function(roles){
             }
 
             if(roles.indexOf(foundUser.role) > -1 && foundUser.enabled){
-              console.log('founduser '+foundUser.enabled);
+              // console.log('founduser '+foundUser.enabled);
                 return next();
             }
 

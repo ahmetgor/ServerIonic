@@ -1,7 +1,7 @@
 var User = require('../models/user');
 
 exports.getUsers = function(req, res, next){
-  console.log(req.query.firma +'firma' );
+  // console.log(req.query.firma +'firma' );
     User.find({ firma: req.query.firma }, function(err, kayit) {
 
         if (err){
@@ -25,7 +25,7 @@ exports.getUsers = function(req, res, next){
     }
 
   exports.updateUser = function(req, res, next){
-      console.log(req.body);
+      // console.log(req.body);
       User.update({
           _id : req.params.user_id
       }, req.body, function(err, kayit) {
