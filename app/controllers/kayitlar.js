@@ -15,7 +15,7 @@ exports.getKayitlar = function(req, res, next){
     Kayit.find(
       {
     $and : [ query, {owner: owner},
-      { $or: [{baslik: st}, {firma:st}] }
+      { $or: [{baslik: st}, {firma:st}, {durum:st}, {makina:st}, {olusturan:st}, {guncelleyen:st} ] }
     ]
 }
 ,function(err, kayitlar) {
@@ -80,6 +80,8 @@ exports.updateKayit = function(req, res, next){
     }, req.body, function(err, kayit) {
 
       if (err){
+        // console.log(JSON.stringify(err)+'hata');
+
           res.send(err);
       }
         res.json(kayit);

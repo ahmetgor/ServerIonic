@@ -5,7 +5,7 @@ var KayitSchema = new mongoose.Schema({
     baslik: {
         type: String,
         // lowercase: true,
-        unique: true,
+        // unique: true,
         required: true
     },
 
