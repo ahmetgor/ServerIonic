@@ -37,7 +37,7 @@ exports.register = function(req, res, next){
     var firma = req.body.firma;
     var enabled = false;
 
-    if (role = 'creator') {
+    if (role == 'creator') {
       enabled = true;
     }
 
@@ -49,7 +49,7 @@ exports.register = function(req, res, next){
         return res.status(422).send({error: 'Şifre girmediniz!'});
     }
 
-    User.findOne({email: email}, function(err, existingUser){
+    User.findOne({email: {'$regex': email, $options:'i'}}, function(err, existingUser){
 
         if(err){
             return next(err);
@@ -60,7 +60,7 @@ exports.register = function(req, res, next){
             return res.status(422).send({error: 'Bu email kullanımda!'});
         }
 
-        User.findOne({firma: firma, role: 'creator'}, function(err, existingCreator){
+        User.findOne({firma: {'$regex': firma, $options:'i'}, role: 'creator'}, function(err, existingCreator){
 
           if(err){
               return next(err);
