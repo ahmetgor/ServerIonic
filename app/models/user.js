@@ -22,7 +22,7 @@ var UserSchema = new mongoose.Schema({
     firma: {
         type: String,
         required: true,
-        // lowercase: true
+        lowercase: true
     },
     enabled: {
         type: Boolean
