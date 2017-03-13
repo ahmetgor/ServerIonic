@@ -2,7 +2,7 @@ var User = require('../models/user');
 
 exports.getUsers = function(req, res, next){
   // console.log(req.query.firma +'firma' );
-    User.find({ firma: req.query.firma }, function(err, kayit) {
+    User.find({ firma: req.user.firma }, function(err, kayit) {
 
         if (err){
             res.send(err);

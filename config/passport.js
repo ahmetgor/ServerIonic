@@ -16,8 +16,8 @@ var localLogin = new LocalStrategy(localOptions, function(req, email, password, 
     User.findOne({
         email: email,
         firma: {'$regex': req.body.firma, $options:'i'},
-        enabled: true,
-        role: req.body.role
+        enabled: true
+        // role: req.body.role
     }, function(err, user){
 
         if(err){
