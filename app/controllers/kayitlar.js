@@ -9,8 +9,8 @@ exports.getKayitlar = function(req, res, next){
   var query = JSON.parse(req.query.kayit);
   var order = JSON.parse(req.query.orderBy);
   // query = { $and: {firma: "firma"} };
-  // console.log(query);
-  // console.log(order+'order');
+  console.log(query+'query');
+  console.log(order+'order');
 
     Kayit.find(
       {
